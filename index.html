@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitTracker Pro - Commit History Analytics</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#" class="nav-brand">
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
+                GitTracker Pro
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#analytics" class="nav-link">Analytics</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>GitHub Commit History Analytics</h1>
+            <p>Track, analyze, and visualize commit histories from any GitHub repository with powerful insights and
+                beautiful charts.</p>
+        </section>
+
+        <section class="search-section">
+            <form class="search-form" id="searchForm">
+                <div class="form-group">
+                    <label for="username">GitHub Username</label>
+                    <input type="text" id="username" name="username" placeholder="e.g., octocat" required>
+                </div>
+                <div class="form-group">
+                    <label for="repository">Repository Name</label>
+                    <input type="text" id="repository" name="repository" placeholder="e.g., Hello-World" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Analyze Commits
+                </button>
+            </form>
+        </section>
+
+        <div class="stats-grid" id="statsGrid" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-number" id="totalCommits">0</div>
+                <div class="stat-label">Total Commits</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalAuthors">0</div>
+                <div class="stat-label">Contributors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgCommitsPerDay">0</div>
+                <div class="stat-label">Avg Commits/Day</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="lastCommitDays">0</div>
+                <div class="stat-label">Days Since Last</div>
+            </div>
+        </div>
+
+        <article class="repo-info" id="repoInfo">
+            <div class="repo-header">
+                <img class="repo-avatar" id="repoAvatar" src="" alt="Repository Avatar">
+                <div class="repo-details">
+                    <h2 id="repoName"></h2>
+                    <p class="repo-description" id="repoDescription"></p>
+                </div>
+            </div>
+            <div class="repo-meta">
+                <div class="meta-item">
+                    <span>⭐</span>
+                    <span id="repoStars">0</span>
+                </div>
+                <div class="meta-item">
+                    <span>🍴</span>
+                    <span id="repoForks">0</span>
+                </div>
+                <div class="meta-item">
+                    <span>👁️</span>
+                    <span id="repoWatchers">0</span>
+                </div>
+                <div class="meta-item">
+                    <span>📝</span>
+                    <span id="repoLanguage">Unknown</span>
+                </div>
+            </div>
+        </article>
+
+        <section class="commits-section" id="commitsSection" style="display: none;">
+            <div class="commits-header">
+                <h2>📊 Commit History</h2>
+                <div>
+                    <button class="btn btn-secondary" id="loadMoreBtn">Load More</button>
+                </div>
+            </div>
+            <div class="commits-list" id="commitsList">
+                <!-- Commits will be populated here -->
+            </div>
+        </section>
+
+        <div id="loadingState" class="loading hidden">
+            Loading commit data...
+        </div>
+
+        <div id="errorState" class="error hidden">
+            <h3>Error Loading Data</h3>
+            <p id="errorMessage">Something went wrong. Please check the repository details and try again.</p>
+        </div>
+
+        <section class="contact-section" id="contact">
+            <h2 class="text-center mb-3">Contact Us</h2>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="contactName">Your Name</label>
+                    <input type="text" id="contactName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Email Address</label>
+                    <input type="email" id="contactEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactSubject">Subject</label>
+                    <input type="text" id="contactSubject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage">Message</label>
+                    <textarea id="contactMessage" name="message"
+                        placeholder="Tell us about your experience or ask questions..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GitTracker Pro. All rights reserved.
+            <a href="https://github.com" target="_blank">GitHub API</a> powered.
+        </p>
+    </footer>
+
+    <script>
+        // ES6+ JavaScript Implementation
+        class GitHubCommitTracker {
+            constructor() {
+                this.currentPage = 1;
+                this.commitsPerPage = 30;
+                this.currentRepo = null;
+                this.allCommits = [];
+                this.isLoading = false;
+
+                this.init();
+            }
+
+            // Initialize the application
+            init() {
+                this.bindEvents();
+                this.setupRouter();
+            }
+
+            // Event handling
+            bindEvents() {
+                const searchForm = document.getElementById('searchForm');
+                const contactForm = document.getElementById('contactForm');
+                const loadMoreBtn = document.getElementById('loadMoreBtn');
+                const navLinks = document.querySelectorAll('.nav-link');
+
+                searchForm.addEventListener('submit', this.handleSearch.bind(this));
+                contactForm.addEventListener('submit', this.handleContactForm.bind(this));
+                loadMoreBtn.addEventListener('click', this.loadMoreCommits.bind(this));
+
+                // Navigation event handling
+                navLinks.forEach(link => {
+                    link.addEventListener('click', this.handleNavigation.bind(this));
+                });
+
+                // Handle form input validation
+                const inputs = document.querySelectorAll('input[required]');
+                inputs.forEach(input => {
+                    input.addEventListener('blur', this.validateInput.bind(this));
+                });
+            }
+
+            // Simple routing system
+            setupRouter() {
+                window.addEventListener('hashchange', this.handleRoute.bind(this));
+                this.handleRoute();
+            }
+
+            handleRoute() {
+                const hash = window.location.hash || '#home';
+                const section = hash.substring(1);
+
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                const activeLink = document.querySelector(`[href="${hash}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+
+                // Scroll to section if it exists
+                const targetSection = document.getElementById(section);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            handleNavigation(event) {
+                event.preventDefault();
+                const href = event.target.getAttribute('href');
+                window.location.hash = href;
+            }
+
+            // Form validation
+            validateInput(event) {
+                const input = event.target;
+                const isValid = input.checkValidity();
+
+                if (!isValid) {
+                    input.style.borderColor = 'var(--warning-color)';
+                } else {
+                    input.style.borderColor = 'var(--border-color)';
+                }
+            }
+
+            // Handle search form submission
+            async handleSearch(event) {
+                event.preventDefault();
+
+                const formData = new FormData(event.target);
+                const username = formData.get('username').trim();
+                const repository = formData.get('repository').trim();
+
+                if (!username || !repository) {
+                    this.showError('Please enter both username and repository name.');
+                    return;
+                }
+
+                this.currentRepo = { username, repository };
+                this.currentPage = 1;
+                this.allCommits = [];
+
+                await this.fetchRepositoryData(username, repository);
+            }
+
+            // API calls using fetch
+            async fetchRepositoryData(username, repository) {
+                try {
+                    this.showLoading(true);
+                    this.hideError();
+
+                    // Fetch repository information
+                    const repoResponse = await fetch(`https://api.github.com/repos/${username}/${repository}`);
+
+                    if (!repoResponse.ok) {
+                        throw new Error(`Repository not found: ${repoResponse.status}`);
+                    }
+
+                    const repoData = await repoResponse.json();
+                    this.displayRepositoryInfo(repoData);
+
+                    // Fetch commits
+                    await this.fetchCommits(username, repository);
+
+                } catch (error) {
+                    this.handleError(error);
+                } finally {
+                    this.showLoading(false);
+                }
+            }
+
+            async fetchCommits(username, repository, page = 1) {
+                try {
+                    const response = await fetch(
+                        `https://api.github.com/repos/${username}/${repository}/commits?page=${page}&per_page=${this.commitsPerPage}`
+                    );
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch commits: ${response.status}`);
+                    }
+
+                    const commits = await response.json();
+
+                    if (page === 1) {
+                        this.allCommits = commits;
+                    } else {
+                        this.allCommits = [...this.allCommits, ...commits];
+                    }
+
+                    this.displayCommits(commits, page === 1);
+                    this.updateStats();
+                    this.showCommitsSection();
+
+                    // Show/hide load more button
+                    const loadMoreBtn = document.getElementById('loadMoreBtn');
+                    loadMoreBtn.style.display = commits.length === this.commitsPerPage ? 'block' : 'none';
+
+                } catch (error) {
+                    this.handleError(error);
+                }
+            }
+
+            // Display repository information
+            displayRepositoryInfo(repo) {
+                const repoInfo = document.getElementById('repoInfo');
+                const repoAvatar = document.getElementById('repoAvatar');
+                const repoName = document.getElementById('repoName');
+                const repoDescription = document.getElementById('repoDescription');
+                const repoStars = document.getElementById('repoStars');
+                const repoForks = document.getElementById('repoForks');
+                const repoWatchers = document.getElementById('repoWatchers');
+                const repoLanguage = document.getElementById('repoLanguage');
+
+                repoAvatar.src = repo.owner.avatar_url;
+                repoAvatar.alt = `${repo.owner.login} avatar`;
+                repoName.textContent = repo.full_name;
+                repoDescription.textContent = repo.description || 'No description available';
+                repoStars.textContent = this.formatNumber(repo.stargazers_count);
+                repoForks.textContent = this.formatNumber(repo.forks_count);
+                repoWatchers.textContent = this.formatNumber(repo.watchers_count);
+                repoLanguage.textContent = repo.language || 'Unknown';
+
+                repoInfo.style.display = 'block';
+            }
+
+            // Display commits with conditional rendering
+            displayCommits(commits, clearExisting = false) {
+                const commitsList = document.getElementById('commitsList');
+
+                if (clearExisting) {
+                    commitsList.innerHTML = '';
+                }
+
+                if (commits.length === 0) {
+                    commitsList.innerHTML = `
+                        <div class="empty-state">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="No commits">
+                            <h3>No commits found</h3>
+                            <p>This repository doesn't have any commits yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                commits.forEach(commit => {
+                    const commitElement = this.createCommitElement(commit);
+                    commitsList.appendChild(commitElement);
+                });
+            }
+
+            // Create individual commit element
+            createCommitElement(commit) {
+                const commitItem = document.createElement('div');
+                commitItem.className = 'commit-item';
+
+                const commitDate = new Date(commit.commit.author.date);
+                const timeAgo = this.getTimeAgo(commitDate);
+                const shortSha = commit.sha.substring(0, 7);
+
+                commitItem.innerHTML = `
+                    <div class="commit-header">
+                        <div>
+                            <div class="commit-message">${this.escapeHtml(commit.commit.message.split('\n')[0])}</div>
+                            <div class="commit-meta">
+                                <div class="commit-author">
+                                    <img class="author-avatar" src="${commit.author?.avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'}" alt="${commit.commit.author.name}">
+                                    <span>${this.escapeHtml(commit.commit.author.name)}</span>
+                                </div>
+                                <span class="commit-date">${timeAgo}</span>
+                            </div>
+                        </div>
+                        <div class="commit-sha">${shortSha}</div>
+                    </div>
+                `;
+
+                return commitItem;
+            }
+
+            // Update statistics
+            updateStats() {
+                const totalCommits = this.allCommits.length;
+                const uniqueAuthors = new Set(this.allCommits.map(commit => commit.commit.author.email)).size;
+
+                // Calculate average commits per day
+                const dates = this.allCommits.map(commit => new Date(commit.commit.author.date));
+                const oldestDate = new Date(Math.min(...dates));
+                const newestDate = new Date(Math.max(...dates));
+                const daysDiff = Math.ceil((newestDate - oldestDate) / (1000 * 60 * 60 * 24)) || 1;
+                const avgCommitsPerDay = (totalCommits / daysDiff).toFixed(1);
+
+                // Days since last commit
+                const lastCommitDate = new Date(this.allCommits[0]?.commit.author.date);
+                const daysSinceLastCommit = Math.ceil((new Date() - lastCommitDate) / (1000 * 60 * 60 * 24));
+
+                document.getElementById('totalCommits').textContent = totalCommits;
+                document.getElementById('totalAuthors').textContent = uniqueAuthors;
+                document.getElementById('avgCommitsPerDay').textContent = avgCommitsPerDay;
+                document.getElementById('lastCommitDays').textContent = daysSinceLastCommit;
+
+                // Show stats grid
+                document.getElementById('statsGrid').style.display = 'grid';
+            }
+
+            // Load more commits
+            async loadMoreCommits() {
+                if (this.isLoading || !this.currentRepo) return;
+
+                this.currentPage++;
+                this.isLoading = true;
+
+                try {
+                    await this.fetchCommits(this.currentRepo.username, this.currentRepo.repository, this.currentPage);
+                } finally {
+                    this.isLoading = false;
+                }
+            }
+
+            // State management and UI updates
+            showLoading(show) {
+                const loadingState = document.getElementById('loadingState');
+                loadingState.classList.toggle('hidden', !show);
+            }
+
+            showError(message) {
+                const errorState = document.getElementById('errorState');
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.textContent = message;
+                errorState.classList.remove('hidden');
+            }
+
+            hideError() {
+                const errorState = document.getElementById('errorState');
+                errorState.classList.add('hidden');
+            }
+
+            showCommitsSection() {
+                const commitsSection = document.getElementById('commitsSection');
+                commitsSection.style.display = 'block';
+            }
+
+            // Error handling
+            handleError(error) {
+                console.error('Error:', error);
+                let message = 'An unexpected error occurred.';
+
+                if (error.message.includes('404')) {
+                    message = 'Repository not found. Please check the username and repository name.';
+                } else if (error.message.includes('403')) {
+                    message = 'API rate limit exceeded. Please try again later.';
+                } else if (error.message.includes('Failed to fetch')) {
+                    message = 'Network error. Please check your internet connection.';
+                }
+
+                this.showError(message);
+            }
+
+            // Contact form handling
+            handleContactForm(event) {
+                event.preventDefault();
+
+                const formData = new FormData(event.target);
+                const contactData = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message')
+                };
+
+                // Simulate form submission (in real app, this would send to server)
+                this.simulateFormSubmission(contactData);
+
+                // Reset form
+                event.target.reset();
+            }
+
+            simulateFormSubmission(data) {
+                // Store form data in memory (not localStorage due to artifact restrictions)
+                window.contactSubmissions = window.contactSubmissions || [];
+                window.contactSubmissions.push({
+                    ...data,
+                    timestamp: new Date().toISOString()
+                });
+
+                alert('Thank you for your message! We will get back to you soon.');
+            }
+
+            // Utility functions
+            formatNumber(num) {
+                if (num >= 1000000) {
+                    return (num / 1000000).toFixed(1) + 'M';
+                } else if (num >= 1000) {
+                    return (num / 1000).toFixed(1) + 'K';
+                }
+                return num.toString();
+            }
+
+            getTimeAgo(date) {
+                const now = new Date();
+                const diffInSeconds = Math.floor((now - date) / 1000);
+
+                const intervals = {
+                    year: 31536000,
+                    month: 2592000,
+                    week: 604800,
+                    day: 86400,
+                    hour: 3600,
+                    minute: 60
+                };
+
+                for (const [unit, seconds] of Object.entries(intervals)) {
+                    const interval = Math.floor(diffInSeconds / seconds);
+                    if (interval >= 1) {
+                        return `${interval} ${unit}${interval > 1 ? 's' : ''} ago`;
+                    }
+                }
+
+                return 'just now';
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new GitHubCommitTracker();
+        });
+
+        // Additional ES6+ features demonstration
+        const AppUtils = {
+            // Arrow functions
+            debounce: (func, wait) => {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            },
+
+            // Template literals and destructuring
+            formatCommitData: ({ commit, author, sha }) => {
+                const { message, author: commitAuthor } = commit;
+                const { name, email, date } = commitAuthor;
+
+                return {
+                    shortSha: sha.substring(0, 7),
+                    message: message.split('\n')[0],
+                    authorName: name,
+                    authorEmail: email,
+                    date: new Date(date),
+                    avatarUrl: author?.avatar_url
+                };
+            },
+
+            // Async/await with error handling
+            async fetchWithRetry(url, options = {}, retries = 3) {
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return await response.json();
+                    } catch (error) {
+                        if (i === retries - 1) throw error;
+                        await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+                    }
+                }
+            }
+        };
+
+        // Export for potential module usage
+        if (typeof module !== 'undefined' && module.exports) {
+            module.exports = { GitHubCommitTracker, AppUtils };
+        }
+    </script>
+</body>
+
+</html>
