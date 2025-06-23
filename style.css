@@ -602,10 +602,13 @@ html {
     .form-group input,
     .contact-form input,
     .contact-form textarea {
-        font-size: 0.1rem;
+        font-size: 1rem;
         padding: 1rem;
     }
 
+    .form-group {
+        font-size: 2rem;
+    }
 
     .btn,
     .btn-primary {
