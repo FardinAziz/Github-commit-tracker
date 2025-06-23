@@ -242,7 +242,6 @@
                 }
             }
 
-            // Handle search form submission
             async handleSearch(event) {
                 event.preventDefault();
 
@@ -261,10 +260,15 @@
 
                 await this.fetchRepositoryData(username, repository);
 
-                // Scroll to analytics section after loading
-                document.getElementById('analytics').scrollIntoView({ behavior: 'smooth' });
-
+                // ✅ Force scroll to analytics section after a slight delay
+                setTimeout(() => {
+                    const analyticsSection = document.getElementById('analytics');
+                    if (analyticsSection) {
+                        analyticsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 500); // enough time for rendering
             }
+
 
             // API calls using fetch
             async fetchRepositoryData(username, repository) {
