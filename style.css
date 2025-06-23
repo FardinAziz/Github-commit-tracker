@@ -606,9 +606,10 @@ html {
         padding: 1rem;
     }
 
-    .form-group {
-        font-size: 2rem;
+    .search-form .form-group label {
+        font-size: 0.9rem;
     }
+
 
     .btn,
     .btn-primary {
