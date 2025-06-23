@@ -26,20 +26,20 @@
 
     <main>
         <section class="hero" id="home">
-            <h1> GitHub Repository Activity</h1>
-            <p>Track, analyze, and visualize commit histories from any GitHub repository with powerful insights and
-                beautiful charts.</p>
+            <h1>GitHub Commit History Analytics</h1>
+            <p>Track, analyze, and visualize commit histories from any GitHub repository — with meaningful insights and
+                elegant visualizations.</p>
         </section>
 
         <section class="search-section" id="analytics">
             <form class="search-form" id="searchForm">
                 <div class="form-group">
                     <label for="username">GitHub Username</label>
-                    <input type="text" id="username" name="username" placeholder="e.g., CM Punk" required>
+                    <input type="text" id="username" name="username" placeholder="e.g., octocat" required>
                 </div>
                 <div class="form-group">
                     <label for="repository">Repository Name</label>
-                    <input type="text" id="repository" name="repository" placeholder="e.g., Best in the World" required>
+                    <input type="text" id="repository" name="repository" placeholder="e.g., Hello-World" required>
                 </div>
                 <button type="submit" class="btn btn-primary">
                     Analyze Commits
@@ -260,6 +260,10 @@
                 this.allCommits = [];
 
                 await this.fetchRepositoryData(username, repository);
+
+                // Scroll to analytics section after loading
+                document.getElementById('analytics').scrollIntoView({ behavior: 'smooth' });
+
             }
 
             // API calls using fetch
