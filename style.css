@@ -597,6 +597,7 @@ html {
 
     .search-form {
         grid-template-columns: 1fr;
+        margin-top: 10px;
     }
 
     .form-group input,
