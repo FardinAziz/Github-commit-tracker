@@ -318,6 +318,14 @@
                     this.updateStats();
                     this.showCommitsSection();
 
+                    // Scroll to analytics section after rendering (works on mobile + desktop)
+                    setTimeout(() => {
+                        const analyticsSection = document.getElementById('analytics');
+                        if (analyticsSection) {
+                            analyticsSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }, 100);
+
                     // Show/hide load more button
                     const loadMoreBtn = document.getElementById('loadMoreBtn');
                     loadMoreBtn.style.display = commits.length === this.commitsPerPage ? 'block' : 'none';
