@@ -113,14 +113,14 @@ main {
     font-size: 1.5rem;
     opacity: 0.9;
     max-width: 600px;
-    margin: 0 auto;
+    margin: auto;
     color: #d0d0d0;
 }
 
 /* Search Section */
 .search-section {
     background: var(--secondary-color);
-    padding: 7rem;
+    padding: 5rem;
     border-radius: 12px;
     margin-bottom: 2rem;
     border: 1px solid var(--border-color);
@@ -602,9 +602,10 @@ html {
     .form-group input,
     .contact-form input,
     .contact-form textarea {
-        font-size: 1rem;
+        font-size: 0.75rem;
         padding: 1rem;
     }
+
 
     .btn,
     .btn-primary {
