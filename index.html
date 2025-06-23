@@ -12,16 +12,24 @@
 <body>
     <header>
         <nav>
+            <!-- Logo + Brand -->
             <a href="#" class="nav-brand">
-                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                    alt="GitHub Logo" />
                 GitTracker Pro
             </a>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active">Home</a></li>
+
+            <!-- Hamburger icon (only shows on phone) -->
+            <div class="hamburger" id="hamburger">&#9776;</div>
+
+            <!-- Navigation links -->
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#analytics" class="nav-link">Analytics</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </nav>
+
     </header>
 
     <main>
@@ -615,6 +623,15 @@
         if (typeof module !== 'undefined' && module.exports) {
             module.exports = { GitHubCommitTracker, AppUtils };
         }
+
+
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
 
 
 
