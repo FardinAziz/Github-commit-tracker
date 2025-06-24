@@ -750,10 +750,20 @@ html {
     }
 }
 
+@media (max-width: 768px) {
 
+    /* Reduce bottom spacing under search form */
+    .search-section {
+        margin-bottom: 1rem !important;
+        padding-bottom: 0.5rem !important;
+    }
 
-
-
+    /* Reduce top spacing for contact section */
+    .contact-section {
+        padding-top: 1rem !important;
+        margin-top: 0 !important;
+    }
+}
 
 
 /* Utility Classes */
