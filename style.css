@@ -705,6 +705,16 @@ html {
     /* adjust this if your nav bar height changes */
 }
 
+/* Style only the labels inside the contact form */
+.contact-form label {
+    font-size: 1.1rem;
+    /* Adjust size */
+    font-weight: 500;
+    /* Optional: make slightly bolder */
+    color: #e0e0e0;
+    /* Optional: subtle light tone */
+}
+
 
 
 /* Utility Classes */
