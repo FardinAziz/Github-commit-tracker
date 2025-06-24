@@ -810,16 +810,17 @@ html {
 }
 
 @media (max-width: 768px) {
-    .analytics-section {
-        margin-bottom: 2rem;
-        /* space below stats & repo info */
+    #analytics {
+        margin-bottom: 2rem !important;
+        /* give space below analytics */
     }
 
-    .contact-section {
-        padding-top: 2rem;
-        /* ensure space above contact form */
+    #contact {
+        padding-top: 2rem !important;
+        /* give space above contact */
     }
 }
+
 
 
 
