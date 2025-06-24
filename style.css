@@ -723,21 +723,34 @@ html {
 }
 
 @media (max-width: 768px) {
+
+    /* Reduce space below hero text */
     .hero p {
         margin-bottom: 0.5rem !important;
-        /* reduce gap between text and form */
     }
 
+    /* Ensure full scrollable height instead of fixed 100vh */
+    .hero {
+        min-height: auto !important;
+        padding-bottom: 2rem;
+    }
+
+    /* Fix overflow in form section */
     .search-section {
-        margin-bottom: 2rem !important;
-        /* reduce large space below form */
+        padding-bottom: 2rem;
+        margin-bottom: 0;
     }
 
-    .btn-primary {
-        margin-top: 0.5rem !important;
-        /* give button a little breathing room */
+    /* Reduce form field vertical spacing */
+    .search-form input,
+    .search-form button {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
     }
 }
+
+
+
 
 
 
