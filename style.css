@@ -814,12 +814,13 @@ html {
     #repoInfo,
     #statsGrid {
         margin-bottom: 2rem;
-        /* push space before contact section */
     }
 
     #contact {
-        padding-top: 2rem;
-        margin-top: 0 !important;
+        margin-top: 2rem !important;
+        /* ✅ ADD margin between sections */
+        padding-top: 1rem;
+        /* keep a bit of inner spacing */
     }
 }
 
