@@ -311,7 +311,7 @@ main {
 }
 
 .commit-item:hover {
-    background: rgba(247, 129, 102, 0.05);
+    background: #d3c7c50d;
 }
 
 .commit-item:last-child {
@@ -335,7 +335,7 @@ main {
     font-family: 'Courier New', monospace;
     font-size: 0.85rem;
     color: var(--accent-color);
-    background: rgba(247, 129, 102, 0.1);
+    background: hsla(0, 21%, 83%, 0.102);
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
 }
@@ -821,6 +821,54 @@ html {
         /* ✅ ADD margin between sections */
         padding-top: 1rem;
         /* keep a bit of inner spacing */
+    }
+}
+
+/* === Improved mobile nav menu === */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #111;
+        flex-direction: column;
+        align-items: center;
+        display: none;
+        gap: 1.2rem;
+        padding: 1.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        transition: all 0.3s ease;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links.active {
+        display: flex;
+        animation: fadeDown 0.3s ease-in-out forwards;
+    }
+
+    @keyframes fadeDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+        color: #eee;
+        transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+        color: #00acee;
+        /* highlight color on hover */
     }
 }
 
