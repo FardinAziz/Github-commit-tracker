@@ -582,6 +582,10 @@ html {
     .hero {
         padding: 3rem 1rem;
         text-align: center;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .hero h1 {
