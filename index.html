@@ -55,25 +55,6 @@
             </form>
         </section>
 
-        <div class="stats-grid" id="statsGrid" style="display: none;">
-            <div class="stat-card">
-                <div class="stat-number" id="totalCommits">0</div>
-                <div class="stat-label">Total Commits</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="totalAuthors">0</div>
-                <div class="stat-label">Contributors</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="avgCommitsPerDay">0</div>
-                <div class="stat-label">Avg Commits/Day</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="lastCommitDays">0</div>
-                <div class="stat-label">Days Since Last</div>
-            </div>
-        </div>
-
         <article class="repo-info" id="repoInfo">
             <div class="repo-header">
                 <img class="repo-avatar" id="repoAvatar" src="" alt="Repository Avatar">
@@ -101,6 +82,25 @@
                 </div>
             </div>
         </article>
+
+        <div class="stats-grid" id="statsGrid" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-number" id="totalCommits">0</div>
+                <div class="stat-label">Total Commits</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalAuthors">0</div>
+                <div class="stat-label">Contributors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgCommitsPerDay">0</div>
+                <div class="stat-label">Avg Commits/Day</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="lastCommitDays">0</div>
+                <div class="stat-label">Days Since Last</div>
+            </div>
+        </div>
 
         <section class="commits-section" id="commitsSection" style="display: none;">
             <div class="commits-header">
@@ -225,12 +225,22 @@
                     activeLink.classList.add('active');
                 }
 
-                // Scroll to section if it exists
-                const targetSection = document.getElementById(section);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                // Scroll to correct section
+                let scrollTarget = document.getElementById(section);
+
+                // If navigating to #analytics, scroll to the repoInfo card instead
+                if (section === 'analytics') {
+                    scrollTarget = document.getElementById('repoInfo');
+                }
+
+                if (scrollTarget) {
+                    const offset = 80; // adjust if needed for navbar height
+                    const scrollY = scrollTarget.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top: scrollY, behavior: 'smooth' });
                 }
             }
+
+
 
             handleNavigation(event) {
                 event.preventDefault();
@@ -268,13 +278,15 @@
 
                 await this.fetchRepositoryData(username, repository);
 
-                // ✅ Force scroll to analytics section after a slight delay
+                // ✅ Scroll to the repo info card (after render)
                 setTimeout(() => {
-                    const analyticsSection = document.getElementById('analytics');
-                    if (analyticsSection) {
-                        analyticsSection.scrollIntoView({ behavior: 'smooth' });
+                    const repoInfoCard = document.getElementById('repoInfo');
+                    if (repoInfoCard) {
+                        const offset = 80; // match navbar height
+                        const scrollY = repoInfoCard.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({ top: scrollY, behavior: 'smooth' });
                     }
-                }, 500); // enough time for rendering
+                }, 100); // slight delay ensures layout is ready
             }
 
 
