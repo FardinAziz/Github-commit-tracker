@@ -765,6 +765,20 @@ html {
     }
 }
 
+@media (max-width: 768px) {
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        /* adjust as needed */
+    }
+
+    .stats-card {
+        width: 100%;
+        /* ensures each card fills the grid cell */
+    }
+}
+
 
 /* Utility Classes */
 .hidden {
