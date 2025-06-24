@@ -627,9 +627,7 @@ html {
         padding: 1rem;
     }
 
-    main {
-        margin-top: 50px;
-    }
+
 
 }
 
@@ -722,6 +720,23 @@ html {
     /* Optional: make slightly bolder */
     color: #e0e0e0;
     /* Optional: subtle light tone */
+}
+
+@media (max-width: 768px) {
+    .hero p {
+        margin-bottom: 0.5rem !important;
+        /* reduce gap between text and form */
+    }
+
+    .search-section {
+        margin-bottom: 2rem !important;
+        /* reduce large space below form */
+    }
+
+    .btn-primary {
+        margin-top: 0.5rem !important;
+        /* give button a little breathing room */
+    }
 }
 
 
