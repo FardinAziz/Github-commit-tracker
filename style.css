@@ -809,6 +809,18 @@ html {
     }
 }
 
+@media (max-width: 768px) {
+    .analytics-section {
+        margin-bottom: 2rem;
+        /* space below stats & repo info */
+    }
+
+    .contact-section {
+        padding-top: 2rem;
+        /* ensure space above contact form */
+    }
+}
+
 
 
 /* Utility Classes */
