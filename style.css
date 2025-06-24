@@ -780,14 +780,11 @@ html {
 }
 
 @media (max-width: 768px) {
+
+    /* Only shrink layout when .repo-info is already rendered (no display: flex override) */
     .repo-info {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
         padding: 1rem;
         margin-bottom: 1rem;
-        flex-direction: row;
-        /* avatar + info side by side */
     }
 
     .repo-info img {
@@ -806,12 +803,12 @@ html {
     }
 
     .repo-info-content {
-        flex: 1;
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
     }
 }
+
 
 
 /* Utility Classes */
