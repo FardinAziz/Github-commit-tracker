@@ -87,7 +87,7 @@ nav {
 
 /* Main Content */
 main {
-    max-width: 960px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
 }
@@ -876,7 +876,11 @@ html {
     }
 }
 
-.site-wrapper {}
+.site-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
 
 
 
