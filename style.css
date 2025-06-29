@@ -908,17 +908,13 @@ html {
     margin-bottom: 1.5rem;
 }
 
-/* === Improved spacing for large screens === */
-@media (min-width: 769px) {
-    .hero {
-        padding: 3rem 1rem;
-        /* Reduce vertical space */
-    }
+/* Fix hero spacing */
+.hero {
+    padding: 3rem 1rem;
+    margin: 0 auto 2rem auto;
+}
 
-    .search-section {
-        padding: 3rem 2rem;
-        /* Reduce search box space */
-        margin-bottom: 3rem;
-        /* Reasonable gap below search */
-    }
+/* Fix search box to stack vertically */
+.search-form {
+    grid-template-columns: 1fr;
 }
