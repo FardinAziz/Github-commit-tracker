@@ -961,3 +961,10 @@ html {
         font-size: 1rem;
     }
 }
+
+/* force search-form to stack on phone */
+@media (max-width: 768px) {
+    .search-form {
+        grid-template-columns: 1fr;
+    }
+}
