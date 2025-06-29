@@ -908,13 +908,30 @@ html {
     margin-bottom: 1.5rem;
 }
 
-/* Fix hero spacing */
+
+/* HERO: remove negative margin! */
 .hero {
+    text-align: center;
     padding: 3rem 1rem;
-    margin: 0 auto 2rem auto;
+    background: var(--gradient-primary);
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 2rem;
 }
 
-/* Fix search box to stack vertically */
+/* SEARCH: always stacked vertically */
 .search-form {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Make inputs full-width too */
+.search-form .form-group input {
+    width: 100%;
+}
+
+/* Make the button not too huge */
+.search-form button {
+    width: 100%;
 }
