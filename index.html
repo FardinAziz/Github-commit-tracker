@@ -129,7 +129,7 @@
 
             <section class="contact-section" id="contact">
                 <h2 class="text-center mb-3">Reach Out</h2>
-                <form class="contact-form" id="contactForm">
+                <form action="https://formspree.io/f/mldnzdle" method="POST" class="contact-form" id="contactForm">
                     <div class="form-group">
                         <label for="contactName">Your Name</label>
                         <input type="text" id="contactName" name="name" required>
@@ -190,12 +190,10 @@
                 // Event handling
                 bindEvents() {
                     const searchForm = document.getElementById('searchForm');
-                    const contactForm = document.getElementById('contactForm');
                     const loadMoreBtn = document.getElementById('loadMoreBtn');
                     const navLinks = document.querySelectorAll('.nav-link');
 
                     searchForm.addEventListener('submit', this.handleSearch.bind(this));
-                    contactForm.addEventListener('submit', this.handleContactForm.bind(this));
                     loadMoreBtn.addEventListener('click', this.loadMoreCommits.bind(this));
 
                     // Navigation event handling
