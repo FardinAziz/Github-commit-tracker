@@ -732,14 +732,14 @@ html {
 
     /* Pull hero text closer to form */
     .hero p {
-        margin-bottom: 0.2rem !important;
+        margin-bottom: 0.2rem;
     }
 
     /* Reduce overall vertical padding */
     .hero {
-        min-height: auto !important;
-        padding-top: 2rem !important;
-        padding-bottom: 0.5rem !important;
+        min-height: auto;
+        padding-top: 2rem;
+        padding-bottom: 0.5rem;
     }
 
     /* Tighten spacing inside form */
@@ -751,8 +751,8 @@ html {
 
     /* Shrink gap below form section */
     .search-section {
-        margin-bottom: 0 !important;
-        padding-bottom: 1rem !important;
+        margin-bottom: 0;
+        padding-bottom: 1rem;
     }
 }
 
@@ -760,14 +760,14 @@ html {
 
     /* Reduce bottom spacing under search form */
     .search-section {
-        margin-bottom: 5rem !important;
-        padding-bottom: 1rem !important;
+        margin-bottom: 5rem;
+        padding-bottom: 1rem;
     }
 
     /* Reduce top spacing for contact section */
     .contact-section {
-        padding-top: 1rem !important;
-        margin-top: 0 !important;
+        padding-top: 1rem;
+        margin-top: 0;
     }
 }
 
@@ -823,7 +823,7 @@ html {
     }
 
     #contact {
-        margin-top: 7rem !important;
+        margin-top: 7rem;
         /* ✅ ADD margin between sections */
         padding-top: 1rem;
         /* keep a bit of inner spacing */
