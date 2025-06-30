@@ -932,7 +932,8 @@ html {
     }
 
     .search-section {
-        padding: 3rem 4rem;
+        padding: 3rem 3rem;
+        padding-right: 4rem;
         margin-bottom: 3rem;
     }
 
