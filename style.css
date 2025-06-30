@@ -826,6 +826,7 @@ html {
         margin-top: 7rem;
         /* ✅ ADD margin between sections */
         padding-top: 1rem;
+        padding-right: 2rem;
         /* keep a bit of inner spacing */
     }
 
@@ -934,7 +935,7 @@ html {
     .search-section {
         padding: 3rem 3rem;
         padding-right: 3.08rem;
-
+        margin-left: ;
         margin-bottom: 3rem;
     }
 
@@ -964,10 +965,7 @@ html {
         font-size: 1rem;
     }
 
-    .contact-form {
-        padding: 1rem 0rem;
-        padding-right: 2rem;
-    }
+
 
 
 }
