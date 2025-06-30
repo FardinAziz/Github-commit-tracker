@@ -966,7 +966,7 @@ html {
     }
 
     .contact-section {
-        padding-right: 2rem;
+        padding-right: 2rem !important;
     }
 
 
