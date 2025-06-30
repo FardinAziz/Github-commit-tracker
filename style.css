@@ -933,7 +933,7 @@ html {
 
     .search-section {
         padding: 3rem 3rem;
-        padding-right: 3.3rem;
+        padding-right: 3.15rem;
 
         margin-bottom: 3rem;
     }
@@ -965,6 +965,6 @@ html {
     }
 
     .contact-section {
-        padding-right: 2rem;
+        padding: auto;
     }
 }
