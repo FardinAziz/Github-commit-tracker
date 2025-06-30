@@ -914,7 +914,7 @@ html {
 @media (max-width: 768px) {
 
     main {
-        padding: 1rem;
+        padding: 0rem;
     }
 
     .hero {
@@ -932,7 +932,7 @@ html {
     }
 
     .search-section {
-        padding: 2rem 1rem;
+        padding: 3rem 4rem;
         margin-bottom: 3rem;
     }
 
@@ -944,6 +944,7 @@ html {
 
     .form-group input {
         padding: 1rem;
+
         font-size: 1rem;
     }
 
@@ -959,187 +960,5 @@ html {
         width: 100%;
         padding: 1rem;
         font-size: 1rem;
-    }
-}
-
-/* force search-form to stack on phone */
-@media (max-width: 768px) {
-    .search-form {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* === FINAL MOBILE FIX OVERRIDES === */
-@media (max-width: 768px) {
-    * {
-        box-sizing: border-box;
-    }
-
-    html,
-    body {
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-    main {
-        padding: 1rem !important;
-        width: 100% !important;
-    }
-
-    .hero {
-        padding: 2rem 1rem !important;
-        margin: 0 !important;
-        text-align: center !important;
-    }
-
-    .hero h1 {
-        font-size: 2rem !important;
-        line-height: 1.3 !important;
-    }
-
-    .hero p {
-        font-size: 1rem !important;
-        margin: 0.5rem 0 1rem 0 !important;
-        color: var(--text-secondary);
-    }
-
-    .search-section {
-        padding: 1.5rem 1rem !important;
-        margin: 1rem 0 !important;
-        width: 100% !important;
-    }
-
-    .search-form {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 1rem;
-        width: 100% !important;
-    }
-
-    .form-group {
-        width: 100%;
-    }
-
-    .form-group input,
-    .contact-form input,
-    .contact-form textarea {
-        width: 100% !important;
-        padding: 1rem !important;
-        font-size: 1rem !important;
-    }
-
-    .form-group label {
-        font-size: 1rem;
-    }
-
-    .btn,
-    .btn-primary {
-        font-size: 1rem !important;
-        padding: 1rem !important;
-        width: 100% !important;
-    }
-
-    .repo-info {
-        padding: 1rem !important;
-        margin-bottom: 2rem !important;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 1rem !important;
-    }
-
-    .contact-section {
-        margin-top: 3rem !important;
-        padding: 1rem !important;
-    }
-
-    .commits-header,
-    .commit-item {
-        padding: 1rem !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    .hero h1 {
-        font-size: 1.6rem !important;
-    }
-
-    .btn,
-    .btn-primary {
-        font-size: 0.9rem !important;
-        padding: 0.8rem !important;
-    }
-}
-
-/* ✅ Search Form Mobile Fix */
-@media (max-width: 768px) {
-    .search-section {
-        padding: 1.5rem 1rem !important;
-        margin: 1rem 0 !important;
-        width: 100% !important;
-    }
-
-    .search-form {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 1rem !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    .search-form .form-group {
-        width: 100% !important;
-    }
-
-    .search-form .form-group input {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 1rem !important;
-        font-size: 1rem !important;
-    }
-
-    .search-form button {
-        width: 100% !important;
-        padding: 1rem !important;
-        font-size: 1rem !important;
-    }
-}
-
-/* 🔧 FINAL FIX — FORCE SEARCH FORM TO STACK ON MOBILE */
-@media (max-width: 768px) {
-    .search-form {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 1rem !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    .search-form .form-group {
-        width: 100% !important;
-    }
-
-    .search-form .form-group input {
-        width: 100% !important;
-        padding: 1rem !important;
-        font-size: 1rem !important;
-        box-sizing: border-box !important;
-    }
-
-    .search-form button {
-        width: 100% !important;
-        padding: 1rem !important;
-        font-size: 1rem !important;
-        box-sizing: border-box !important;
-    }
-
-    .search-section {
-        padding: 1rem !important;
-        margin-bottom: 2rem !important;
     }
 }
