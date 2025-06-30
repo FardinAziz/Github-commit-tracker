@@ -1109,3 +1109,37 @@ html {
         font-size: 1rem !important;
     }
 }
+
+/* 🔧 FINAL FIX — FORCE SEARCH FORM TO STACK ON MOBILE */
+@media (max-width: 768px) {
+    .search-form {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .search-form .form-group {
+        width: 100% !important;
+    }
+
+    .search-form .form-group input {
+        width: 100% !important;
+        padding: 1rem !important;
+        font-size: 1rem !important;
+        box-sizing: border-box !important;
+    }
+
+    .search-form button {
+        width: 100% !important;
+        padding: 1rem !important;
+        font-size: 1rem !important;
+        box-sizing: border-box !important;
+    }
+
+    .search-section {
+        padding: 1rem !important;
+        margin-bottom: 2rem !important;
+    }
+}
