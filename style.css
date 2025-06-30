@@ -968,3 +968,98 @@ html {
         grid-template-columns: 1fr;
     }
 }
+
+/* ✅ Mobile Fix Overrides (Final Responsive Fix) */
+@media (max-width: 768px) {
+    main {
+        padding: 1rem !important;
+    }
+
+    .hero {
+        padding: 2rem 1rem !important;
+        margin: -1rem -1rem 1rem -1rem !important;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 2rem !important;
+        line-height: 1.3 !important;
+    }
+
+    .hero p {
+        font-size: 1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .search-section {
+        padding: 2rem 1rem !important;
+        margin-bottom: 2rem !important;
+    }
+
+    .search-form {
+        grid-template-columns: 1fr !important;
+        max-width: 100% !important;
+    }
+
+    .form-group {
+        font-size: 1rem;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+    }
+
+    .form-group input,
+    .contact-form input,
+    .contact-form textarea {
+        padding: 1rem !important;
+        font-size: 1rem !important;
+    }
+
+    .btn,
+    .btn-primary {
+        font-size: 1rem !important;
+        padding: 1rem !important;
+    }
+
+    .repo-info {
+        padding: 1rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .repo-info img {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    .repo-info h2 {
+        font-size: 1rem !important;
+        margin: 0 !important;
+    }
+
+    .repo-info p {
+        font-size: 0.9rem !important;
+        margin: 0 !important;
+    }
+
+    .contact-section {
+        padding-top: 1rem !important;
+        margin-top: 5rem !important;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .commits-header,
+    .commit-item {
+        padding: 1rem !important;
+    }
+}
