@@ -826,7 +826,7 @@ html {
         margin-top: 7rem;
         /* ✅ ADD margin between sections */
         padding-top: 1rem;
-        padding-right: 2rem;
+
         /* keep a bit of inner spacing */
     }
 
@@ -965,7 +965,9 @@ html {
         font-size: 1rem;
     }
 
-
+    .contact-section {
+        background-color: #238636;
+    }
 
 
 }
